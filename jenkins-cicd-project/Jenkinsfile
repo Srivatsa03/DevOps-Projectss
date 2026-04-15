@@ -10,13 +10,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker run --rm -v "$PWD":/workspace -w /workspace maven:3.9.9-eclipse-temurin-17 mvn clean compile'
+                sh 'docker run --rm -v "$PWD":/workspace -w /workspace/jenkins-cicd-project maven:3.9.9-eclipse-temurin-17 mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker run --rm -v "$PWD":/workspace -w /workspace maven:3.9.9-eclipse-temurin-17 mvn test'
+                sh 'docker run --rm -v "$PWD":/workspace -w /workspace/jenkins-cicd-project maven:3.9.9-eclipse-temurin-17 mvn test'
             }
         }
     }
