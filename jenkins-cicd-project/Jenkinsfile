@@ -10,13 +10,21 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh '''
+                    POM_FILE=$(find . -name pom.xml -not -path "*/target/*" | head -n 1)
+                    test -n "$POM_FILE"
+                    mvn -f "$POM_FILE" clean compile
+                '''
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                sh '''
+                    POM_FILE=$(find . -name pom.xml -not -path "*/target/*" | head -n 1)
+                    test -n "$POM_FILE"
+                    mvn -f "$POM_FILE" test
+                '''
             }
         }
     }
